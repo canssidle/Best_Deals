@@ -1,32 +1,32 @@
-# from django.shortcuts import render,redirect
-# from django.http import HttpResponse,Http404,HttpResponseRedirect
-# from django.contrib.auth.decorators import login_required
-# from django.contrib.auth.models import User
-# from .forms import ProfileForm,BusinessForm
-# from .models import Profile,Business
-# from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import render,redirect
+from django.http import HttpResponse,Http404,HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from .forms import ProfileForm,BusinessForm
+from .models import Profile,Business
+from django.core.exceptions import ObjectDoesNotExist
 
-# @login_required(login_url='/accounts/login/')
-# def index(request):
-#     try:
-#         current_user=request.user
-#         profile =Profile.objects.filter(username=current_user)
-#         if not request.user.is_authenticated:
-#             return redirect('/accounts/login/')
-#     except ObjectDoesNotExist:
-#         return render(request,'index.html')
+@login_required(login_url='/accounts/login/')
+def index(request):
+    try:
+        current_user=request.user
+        profile =Profile.objects.filter(username=current_user)
+        if not request.user.is_authenticated:
+            return redirect('/accounts/login/')
+    except ObjectDoesNotExist:
+        return render(request,'index.html')
 
-#     return render(request,'index.html')
+    return render(request,'index.html')
 
-# @login_required(login_url='/accounts/login/')
-# def my_profile(request,id):
-#     current_user = request.user
-#     try:
-#         profile = Profile.objects.filter(username_id=id)
-#     except ObjectDoesNotExist:
-#         return render(request,'user_profile.html')
+@login_required(login_url='/accounts/login/')
+def my_profile(request,id):
+    current_user = request.user
+    try:
+        profile = Profile.objects.filter(username_id=id)
+    except ObjectDoesNotExist:
+        return render(request,'user_profile.html')
 
-#     return render(request,'user_profile.html',{"profiles":profile})
+    return render(request,'user_profile.html',{"profiles":profile})
 
 
 
