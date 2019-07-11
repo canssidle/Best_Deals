@@ -31,66 +31,66 @@ def my_profile(request,id):
 
 
 
-# @login_required(login_url='/accounts/login/')
-# def create_profile(request):
-#     current_user=request.user
-#     if request.method=="POST":
-#         form =ProfileForm(request.POST,request.FILES)
-#         if form.is_valid():
-#             profile = form.save(commit = False)
-#             profile.username = current_user
-#             profile.save()
-#         return HttpResponseRedirect('/')
+@login_required(login_url='/accounts/login/')
+def create_profile(request):
+    current_user=request.user
+    if request.method=="POST":
+        form =ProfileForm(request.POST,request.FILES)
+        if form.is_valid():
+            profile = form.save(commit = False)
+            profile.username = current_user
+            profile.save()
+        return HttpResponseRedirect('/')
 
-#     else:
+    else:
 
-#         form = ProfileForm()
-#     return render(request,'profile_form.html',{"form":form})
+        form = ProfileForm()
+    return render(request,'profile_form.html',{"form":form})
 
-# @login_required(login_url='/accounts/login/')
-# def businesses(request):
-#     current_user=request.user
+@login_required(login_url='/accounts/login/')
+def businesses(request):
+    current_user=request.user
     
-#     businesses = Business.objects.all()
+    businesses = Business.objects.all()
 
-#     return render(request,'business.html',{"businesses":businesses})
+    return render(request,'business.html',{"businesses":businesses})
 
-# @login_required(login_url='/accounts/login/')
-# def new_business(request):
-#     current_user=request.user
+@login_required(login_url='/accounts/login/')
+def new_business(request):
+    current_user=request.user
     
 
-#     if request.method=="POST":
-#         form =BusinessForm(request.POST,request.FILES)
-#         if form.is_valid():
-#             business = form.save(commit = False)
-#             business.owner = current_user
-#             business.save()
+    if request.method=="POST":
+        form =BusinessForm(request.POST,request.FILES)
+        if form.is_valid():
+            business = form.save(commit = False)
+            business.owner = current_user
+            business.save()
 
-#         return HttpResponseRedirect('/businesses')
+        return HttpResponseRedirect('/businesses')
 
-#     else:
-#         form = BusinessForm()
+    else:
+        form = BusinessForm()
 
-#     return render(request,'business_form.html',{"form":form})
+    return render(request,'business_form.html',{"form":form})
 
-# @login_required(login_url='/accounts/login/')
-# def update_profile(request):
-#     current_user=request.user
-#     if request.method=="POST":
-#         instance = Profile.objects.get(username=current_user)
-#         form =ProfileForm(request.POST,request.FILES,instance=instance)
-#         if form.is_valid():
-#             profile = form.save(commit = False)
-#             profile.username = current_user
-#             profile.save()
+@login_required(login_url='/accounts/login/')
+def update_profile(request):
+    current_user=request.user
+    if request.method=="POST":
+        instance = Profile.objects.get(username=current_user)
+        form =ProfileForm(request.POST,request.FILES,instance=instance)
+        if form.is_valid():
+            profile = form.save(commit = False)
+            profile.username = current_user
+            profile.save()
 
-#         return redirect('Index')
+        return redirect('Index')
 
-#     elif Profile.objects.get(username=current_user):
-#         profile = Profile.objects.get(username=current_user)
-#         form = ProfileForm(instance=profile)
-#     else:
-#         form = ProfileForm()
+    elif Profile.objects.get(username=current_user):
+        profile = Profile.objects.get(username=current_user)
+        form = ProfileForm(instance=profile)
+    else:
+        form = ProfileForm()
 
-#     return render(request,'update_profile.html',{"form":form})
+    return render(request,'update_profile.html',{"form":form})
