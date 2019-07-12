@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from tinymce.models import HTMLField
-
+from django.db.models import Q
 class Profile(models.Model):
     avatar = models.ImageField(upload_to='avatars/')
     description = HTMLField()
@@ -24,3 +24,7 @@ class Business(models.Model):
 
     def __str__(self):
         return self.name
+    @classmethod
+    def search_businesses(cls,search_term):
+        businesses = cls.objects.filter(Q(name__name=search_term))
+        return businesses
